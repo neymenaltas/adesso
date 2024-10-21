@@ -10,23 +10,23 @@ import {MatButtonModule} from "@angular/material/button"; // Import your AppStat
 describe('CustomFilterComponent', () => {
   let component: CustomFilterComponent;
   let fixture: ComponentFixture<CustomFilterComponent>;
-  let store: jasmine.SpyObj<Store<AppState>>; // Use the AppState type here
+  let store: jasmine.SpyObj<Store<AppState>>;
 
   beforeEach(async () => {
     const storeSpy = jasmine.createSpyObj<Store<AppState>>('Store', ['dispatch', 'select']);
 
     await TestBed.configureTestingModule({
-      imports: [MatCheckboxModule, MatSliderModule, MatButtonModule], // Add HttpClientTestingModule here
+      imports: [MatCheckboxModule, MatSliderModule, MatButtonModule],
       declarations: [CustomFilterComponent],
       providers: [
         { provide: Store, useValue: storeSpy }
       ]
     }).compileComponents();
 
-    store = TestBed.inject(Store) as jasmine.SpyObj<Store<AppState>>; // Cast the injected store
+    store = TestBed.inject(Store) as jasmine.SpyObj<Store<AppState>>;
     fixture = TestBed.createComponent(CustomFilterComponent);
     component = fixture.componentInstance;
-    component.item = { type: 'gold', checked: false, range: 10 }; // Mock input
+    component.item = { type: 'gold', checked: false, range: 10 };
     fixture.detectChanges();
   });
 
@@ -63,7 +63,7 @@ describe('CustomFilterComponent', () => {
 
     const mockEvent = {
       target: { value: newValue },
-    } as unknown as Event; // Cast to unknown first, then to Event
+    } as unknown as Event;
 
     component.onSliderChange(mockEvent);
     expect(component.rangeValue).toBe(newValue);
@@ -86,8 +86,9 @@ describe('CustomFilterComponent', () => {
 
     setTimeout(() => {
       expect(store.dispatch).toHaveBeenCalledWith(filterActions.changeRange({ filterType: component.item.type, number: newValue2 }));
-      expect(store.dispatch).toHaveBeenCalledTimes(1); // Ensure only the last value is dispatched
+      expect(store.dispatch).toHaveBeenCalledTimes(1);
+
       done();
-    }, 600); // Wait for debounce time
+    }, 600);
   });
 });

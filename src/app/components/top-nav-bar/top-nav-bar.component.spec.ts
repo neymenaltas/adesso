@@ -10,7 +10,7 @@ describe('TopNavBarComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [TopNavBarComponent],
       imports: [
-        RouterModule.forRoot([]) // RouterModule'ü ekliyoruz
+        RouterModule.forRoot([])
       ]
     }).compileComponents();
   });
@@ -18,12 +18,11 @@ describe('TopNavBarComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TopNavBarComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges(); // Bileşeni başlat
+    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy(); // Bileşenin başarılı bir şekilde oluşturulduğunu kontrol et
+    expect(component).toBeTruthy();
   });
 
-  // Diğer testler buraya eklenebilir...
 });

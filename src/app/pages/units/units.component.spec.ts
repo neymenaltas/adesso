@@ -13,7 +13,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {CustomFilterComponent} from "app/components/custom-filter/custom-filter.component";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatSliderModule} from "@angular/material/slider";
-import {MatButtonModule} from "@angular/material/button"; // Import HttpClientTestingModule
+import {MatButtonModule} from "@angular/material/button";
 
 describe('UnitsComponent', () => {
   let component: UnitsComponent;
@@ -24,7 +24,7 @@ describe('UnitsComponent', () => {
   const initialState = {
     units: {
       loadingStatus: { loading: false, loaded: true } as LoadingStatus,
-      unitDetail: [] as Unit[], // Initialize as an empty array
+      unitDetail: [] as Unit[],
     },
     filter: {
       checked: {},
@@ -35,7 +35,7 @@ describe('UnitsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, MatCheckboxModule, MatSliderModule, MatButtonModule], // Add HttpClientTestingModule here
+      imports: [HttpClientTestingModule, MatCheckboxModule, MatSliderModule, MatButtonModule],
       declarations: [UnitsComponent, CustomFilterComponent],
       providers: [
         provideMockStore({ initialState }),
@@ -63,11 +63,11 @@ describe('UnitsComponent', () => {
     store.overrideSelector(selectRange, { wood: 0, food: 0, gold: 0 });
     store.overrideSelector(selectAge, Ages.All);
 
-    fixture.detectChanges(); // Trigger initial data binding
+    fixture.detectChanges();
   });
 
   it('should create the component', () => {
-    expect(component).toBeTruthy(); // Ensure the component is created
+    expect(component).toBeTruthy();
   });
 
   it('should dispatch loadUnits action on init', () => {
@@ -81,7 +81,7 @@ describe('UnitsComponent', () => {
     store.overrideSelector(selectAge, age);
     component.ngOnInit(); // Trigger ngOnInit
 
-    expect(component.selectedAge).toBe(age); // Check if selectedAge is updated
+    expect(component.selectedAge).toBe(age);
   });
 
   it('should navigate to unit detail page on goToUnitDetail', () => {
@@ -99,10 +99,10 @@ describe('UnitsComponent', () => {
 
   it('should filter units based on selected age', () => {
     store.overrideSelector(selectAge, Ages.Castle);
-    const filteredUnits = component.filteredUnits$; // Get filtered units observable
+    const filteredUnits = component.filteredUnits$;
 
     filteredUnits.subscribe((units) => {
-      expect(units.length).toBe(1); // Only Units 1 and 2 should be visible
+      expect(units.length).toBe(1);
       expect(units).toEqual([
         { id: 3, name: 'Unit 3', age: Ages.Castle, cost: Object({ Wood: 200, Food: 100, Gold: 60 }) }
       ] as Unit[]);

@@ -24,7 +24,6 @@ describe('UnitsService', () => {
   });
 
   afterEach(() => {
-    // Her testten sonra açık olan HTTP isteklerini kapat
     httpMock.verify();
   });
 
@@ -40,7 +39,7 @@ describe('UnitsService', () => {
 
     const req = httpMock.expectOne('/api/units');
     expect(req.request.method).toBe('GET');
-    req.flush(mockUnits); // Mock data döndür
+    req.flush(mockUnits);
   });
 
   it('should get unit detail from API', () => {
@@ -53,6 +52,6 @@ describe('UnitsService', () => {
 
     const req = httpMock.expectOne(`/api/units/${unitId}`);
     expect(req.request.method).toBe('GET');
-    req.flush(expectedUnit); // Mock data döndür
+    req.flush(expectedUnit);
   });
 });

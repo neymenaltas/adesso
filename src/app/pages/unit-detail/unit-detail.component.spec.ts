@@ -13,11 +13,10 @@ describe('UnitDetailComponent', () => {
   let store: MockStore;
   let router: Router;
 
-  // Mocking ActivatedRoute snapshot
   const activatedRouteMock = {
     snapshot: {
       paramMap: {
-        get: () => '1' // Mock 'id' as '1'
+        get: () => '1'
       }
     }
   };
@@ -33,9 +32,9 @@ describe('UnitDetailComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [UnitDetailComponent],
       providers: [
-        { provide: ActivatedRoute, useValue: activatedRouteMock }, // Mock ActivatedRoute
-        provideMockStore({ initialState }), // Mock store with initial state
-        { provide: Router, useValue: { navigate: jasmine.createSpy('navigate') } }, // Mock Router
+        { provide: ActivatedRoute, useValue: activatedRouteMock },
+        provideMockStore({ initialState }),
+        { provide: Router, useValue: { navigate: jasmine.createSpy('navigate') } },
       ],
     }).compileComponents();
 
@@ -46,20 +45,19 @@ describe('UnitDetailComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UnitDetailComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges(); // Trigger lifecycle hooks and bindings
+    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy(); // Ensure the component is created
+    expect(component).toBeTruthy();
   });
 
   it('should dispatch loadUnitDetail action on init', () => {
-    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough(); // Spy on dispatch
-    const id = '1'; // Mock ID from ActivatedRoute
+    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+    const id = '1';
 
-    component.ngOnInit(); // Trigger the ngOnInit lifecycle method
+    component.ngOnInit();
 
-    // Assert that the loadUnitDetail action was dispatched with the correct ID
     expect(dispatchSpy).toHaveBeenCalledWith(unitActions.loadUnitDetail({ id }));
   });
 
