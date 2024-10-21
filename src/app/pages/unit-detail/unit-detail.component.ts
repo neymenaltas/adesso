@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable, switchMap} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AppState} from "app/store/app.state";
 import {unitActions} from "app/store/units/unit.action";
 import {Store} from "@ngrx/store";
@@ -18,7 +18,7 @@ export class UnitDetailComponent implements OnInit {
   unitDetail$: Observable<Unit> = this.store.select(selectUnitDetail);
   public loadingStatus$: Observable<LoadingStatus> = this.store.select(selectUnitsLoading);
 
-  constructor(private route: ActivatedRoute, private store: Store<AppState>) {}
+  constructor(private route: ActivatedRoute, private store: Store<AppState>, private router: Router) {}
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -26,4 +26,9 @@ export class UnitDetailComponent implements OnInit {
       this.store.dispatch(unitActions.loadUnitDetail({ id }));
     }
   }
+
+  goBack() {
+    this.router.navigate(['/units']);
+  }
+
 }

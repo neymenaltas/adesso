@@ -1,8 +1,10 @@
-<div *ngIf="(loadingStatus$ | async)?.loading" class="loading-overlay">
+<div class="loading-overlay" *ngIf="(loadingStatus$ | async)?.loading">
     <mat-spinner></mat-spinner>
 </div>
+
 <div *ngIf="(loadingStatus$ | async)?.loaded">
-    <table *ngIf="unitDetail$ | async as unitDetail">
+    <button class="back-button" (click)="goBack()">Back</button>
+    <table class="table" *ngIf="unitDetail$ | async as unitDetail">
         <tr>
             <th>Property</th>
             <th>Value</th>

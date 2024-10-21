@@ -111,7 +111,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
 
   public loadingStatus$: Observable<LoadingStatus> = this.store.select(selectUnitsLoading);
 
-  private filterAgeSubscription$!: Subscription;
+  public filterAgeSubscription$!: Subscription;
 
   constructor(private router: Router, private unitsService: UnitsService, private store: Store<AppState>) {}
 
@@ -128,10 +128,11 @@ export class UnitsComponent implements OnInit, OnDestroy {
 
   onAgeButtonClick(age: string) {
     this.store.dispatch(filterActions.changeAge({age: age}))
-    console.log('Selected Age:', age);
   }
 
   ngOnDestroy() {
-    this.filterAgeSubscription$.unsubscribe();
+    if (this.filterAgeSubscription$) {
+      this.filterAgeSubscription$.unsubscribe();
+    }
   }
 }
