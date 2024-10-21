@@ -100,4 +100,10 @@ describe('UnitDetailComponent', () => {
     component.goBack();
     expect(router.navigate).toHaveBeenCalledWith(['/units']);
   });
+
+  it('should unsubscribe from all subscriptions on destroy', () => {
+    const unsubscribeSpy = spyOn(component.subscriptions$, 'unsubscribe').and.callThrough();
+    component.ngOnDestroy();
+    expect(unsubscribeSpy).toHaveBeenCalled();
+  });
 });

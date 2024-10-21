@@ -1,7 +1,7 @@
-<div *ngIf="(loadingStatus$ | async)?.loading" class="loading-overlay">
+<div *ngIf="loadingStatus.loading" class="loading-overlay">
     <mat-spinner></mat-spinner>
 </div>
-<div *ngIf="(loadingStatus$ | async)?.loaded">
+<div *ngIf="loadingStatus?.loaded">
     <div class="age-buttons">
         <button *ngFor="let age of ages"
                 (click)="onAgeButtonClick(age.value)"
@@ -10,7 +10,7 @@
             {{ age.value }}
         </button>
     </div>
-    <div *ngFor="let item of filters$ | async">
+    <div *ngFor="let item of filters">
         <app-custom-filter [item]="item" />
     </div>
     <table class="unit-table">
@@ -23,7 +23,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let unit of (filteredUnits$ | async)" (click)="goToUnitDetail(unit.id)" style="cursor: pointer;">
+        <tr *ngFor="let unit of filteredUnits" (click)="goToUnitDetail(unit.id)" style="cursor: pointer;">
             <td>{{unit.id}}</td>
             <td>{{unit.name}}</td>
             <td>{{unit.age}}</td>

@@ -21,8 +21,9 @@ import {Filter, ManipulatedFilter} from "app/models/filter.interface";
 })
 export class UnitsComponent implements OnInit, OnDestroy {
 
-  public units$: Observable<Unit[]> = this.store.select(selectAllUnits);
-  public filters$: Observable<Filter[]> = combineLatest([
+  units$: Observable<Unit[]> = this.store.select(selectAllUnits);
+
+  filters$: Observable<Filter[]> = combineLatest([
     this.store.select(selectChecked),
     this.store.select(selectRange)
   ]).pipe(
@@ -38,7 +39,9 @@ export class UnitsComponent implements OnInit, OnDestroy {
     })
   );
 
-  public manipulatedFilters$: Observable<ManipulatedFilter[]> = this.filters$.pipe(
+  filters: Filter[] = [];
+
+  manipulatedFilters$: Observable<ManipulatedFilter[]> = this.filters$.pipe(
     map((filters: Filter[]) => {
       return filters
         .filter((filter) => filter.checked)
@@ -48,10 +51,10 @@ export class UnitsComponent implements OnInit, OnDestroy {
     })
   );
 
-  public filterAge$: Observable<string> = this.store.select(selectAge);
+  filterAge$: Observable<string> = this.store.select(selectAge);
 
 
-  public filteredUnits$: Observable<Unit[]> = combineLatest([
+  filteredUnits$: Observable<Unit[]> = combineLatest([
     this.manipulatedFilters$,
     this.filterAge$,
     this.units$
@@ -99,6 +102,8 @@ export class UnitsComponent implements OnInit, OnDestroy {
     })
   );
 
+  filteredUnits: Unit[] = [];
+
   ages = [
     { key: 'All', value: Ages.All },
     { key: 'Dark', value: Ages.Dark },
@@ -109,17 +114,29 @@ export class UnitsComponent implements OnInit, OnDestroy {
 
   selectedAge: string = Ages.All;
 
-  public loadingStatus$: Observable<LoadingStatus> = this.store.select(selectUnitsLoading);
+  loadingStatus$: Observable<LoadingStatus> = this.store.select(selectUnitsLoading);
+  loadingStatus: LoadingStatus = {loading: false, loaded: false, loadFailed: false};
 
-  public filterAgeSubscription$!: Subscription;
+  subscriptions$: Subscription = new Subscription();
 
   constructor(private router: Router, private unitsService: UnitsService, private store: Store<AppState>) {}
 
   ngOnInit() {
     this.store.dispatch(unitActions.loadUnits());
-    this.filterAgeSubscription$ = this.filterAge$.subscribe(age => {
-      this.selectedAge = age;
-    });
+    this.subscriptions$.add(
+      this.filterAge$.subscribe(age => {
+        this.selectedAge = age;
+      })
+    );
+    this.subscriptions$.add(
+      this.loadingStatus$.subscribe(loadingStatus => {this.loadingStatus = loadingStatus;})
+    )
+    this.subscriptions$.add(
+      this.filters$.subscribe(filters => {this.filters = filters;})
+    )
+    this.subscriptions$.add(
+      this.filteredUnits$.subscribe(units => {this.filteredUnits = units;})
+    )
   }
 
   goToUnitDetail(unitId: number) {
@@ -131,8 +148,8 @@ export class UnitsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.filterAgeSubscription$) {
-      this.filterAgeSubscription$.unsubscribe();
+    if (this.subscriptions$) {
+      this.subscriptions$.unsubscribe();
     }
   }
 }

@@ -111,8 +111,8 @@ describe('UnitsComponent', () => {
 
   });
 
-  it('should unsubscribe from filterAgeSubscription on destroy', () => {
-    const unsubscribeSpy = spyOn(component.filterAgeSubscription$, 'unsubscribe').and.callThrough();
+  it('should unsubscribe from all subscriptions on destroy', () => {
+    const unsubscribeSpy = spyOn(component.subscriptions$, 'unsubscribe').and.callThrough();
     component.ngOnDestroy();
     expect(unsubscribeSpy).toHaveBeenCalled();
   });

@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Observable, Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppState} from "app/store/app.state";
 import {unitActions} from "app/store/units/unit.action";
@@ -13,10 +13,14 @@ import {LoadingStatus} from "app/models/loading-status.interface";
   templateUrl: './unit-detail.component.html',
   styleUrl: './unit-detail.component.scss'
 })
-export class UnitDetailComponent implements OnInit {
+export class UnitDetailComponent implements OnInit, OnDestroy {
 
   unitDetail$: Observable<Unit> = this.store.select(selectUnitDetail);
-  public loadingStatus$: Observable<LoadingStatus> = this.store.select(selectUnitsLoading);
+  unitDetail!: Unit;
+  loadingStatus$: Observable<LoadingStatus> = this.store.select(selectUnitsLoading);
+  loadingStatus: LoadingStatus = {loading: false, loaded: false, loadFailed: false};
+
+  subscriptions$: Subscription = new Subscription();
 
   constructor(private route: ActivatedRoute, private store: Store<AppState>, private router: Router) {}
 
@@ -25,10 +29,22 @@ export class UnitDetailComponent implements OnInit {
     if (id) {
       this.store.dispatch(unitActions.loadUnitDetail({ id }));
     }
+    this.subscriptions$.add(
+      this.loadingStatus$.subscribe(loadingStatus => {this.loadingStatus = loadingStatus;})
+    )
+    this.subscriptions$.add(
+      this.unitDetail$.subscribe(unitDetail => {this.unitDetail = unitDetail})
+    )
   }
 
   goBack() {
     this.router.navigate(['/units']);
+  }
+
+  ngOnDestroy() {
+    if(this.subscriptions$) {
+      this.subscriptions$.unsubscribe();
+    }
   }
 
 }
