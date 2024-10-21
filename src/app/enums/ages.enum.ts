@@ -1,5 +1,7 @@
-export enum FilterTypes {
-  Wood = 'wood',
-  Gold = 'gold',
-  Food = 'food',
+export enum Ages {
+  All = 'All',
+  Dark = 'Dark',
+  Feudal = 'Feudal',
+  Castle = 'Castle',
+  Imperial = 'Imperial',
 }

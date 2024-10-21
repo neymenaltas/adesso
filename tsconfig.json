@@ -3,7 +3,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "*": ["*"],
+      "@src/*": ["src/*"],
+    },
     "outDir": "./dist/out-tsc",
+    "useDefineForClassFields": false,
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,

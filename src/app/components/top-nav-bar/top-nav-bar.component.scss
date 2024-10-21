@@ -1,0 +1,18 @@
+.container {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  a {
+    padding: 20px;
+    text-decoration: none;
+    color: lightblue;
+  }
+
+  .active {
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: underline;
+    font-size: x-large;
+  }
+}

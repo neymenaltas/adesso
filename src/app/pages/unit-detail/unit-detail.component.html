@@ -1,0 +1,59 @@
+<div *ngIf="(loadingStatus$ | async)?.loading" class="loading-overlay">
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="(loadingStatus$ | async)?.loaded">
+    <table *ngIf="unitDetail$ | async as unitDetail">
+        <tr>
+            <th>Property</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Id</td>
+            <td>{{ unitDetail.id }}</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>{{ unitDetail.name }}</td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>{{ unitDetail.description }}</td>
+        </tr>
+        <tr>
+            <td>Minimum Required Age</td>
+            <td>{{ unitDetail.age }}</td>
+        </tr>
+        <tr>
+            <td>Wood</td>
+            <td>{{ unitDetail.cost?.Wood || "-" }}</td>
+        </tr>
+        <tr>
+            <td>Food</td>
+            <td>{{ unitDetail.cost?.Food || "-" }}</td>
+        </tr>
+        <tr>
+            <td>Gold</td>
+            <td>{{ unitDetail.cost?.Gold || "-" }}</td>
+        </tr>
+        <tr>
+            <td>Build Time</td>
+            <td>{{ unitDetail.build_time }}</td>
+        </tr>
+        <tr>
+            <td>Reload Time</td>
+            <td>{{ unitDetail.reload_time }}</td>
+        </tr>
+        <tr>
+            <td>Hit Points</td>
+            <td>{{ unitDetail.hit_points }}</td>
+        </tr>
+        <tr>
+            <td>Attack</td>
+            <td>{{ unitDetail.attack }}</td>
+        </tr>
+        <tr>
+            <td>Accuracy</td>
+            <td>{{ unitDetail.accuracy }}</td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,12 @@
+<div class="container">
+    <mat-checkbox [checked]="item.checked" (change)="onCheckboxChange()">{{ item.type }}</mat-checkbox>
+    <ng-container *ngIf="item.checked">
+        <mat-slider min="0" max="200" step="1" showTickMarks discrete>
+            <input
+                matSliderThumb
+                [value]="item.range"
+                (change)="onSliderChange($event)"
+            >
+        </mat-slider>
+    </ng-container>
+</div>
