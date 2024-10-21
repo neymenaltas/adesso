@@ -8,6 +8,8 @@ import * as units from './age-of-empires-units';
 export class FakeBackendInterceptor implements HttpInterceptor {
   private units = units.units;
 
+  // It is just a dummy file so I will use any for these request and response.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (request.url.endsWith('/api/units') && request.method === 'GET') {
       return of(new HttpResponse({ status: 200, body: this.units.units })).pipe(delay(500));

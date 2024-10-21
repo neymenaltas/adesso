@@ -6,6 +6,4 @@ export interface Filter {
   range: number;
 }
 
-export interface ManipulatedFilter {
-  [key: string]: number;
-}
+export type ManipulatedFilter = Record<FilterType, number>;

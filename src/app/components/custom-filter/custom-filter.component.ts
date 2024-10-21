@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {AppState} from "app/store/app.state";
 import {Store} from "@ngrx/store";
 import {filterActions} from "app/store/filter/filter.action";
@@ -14,7 +14,7 @@ export class CustomFilterComponent implements OnInit{
   @Input() item!: { type: keyof FilterState['checked']; checked: boolean; range: number };
 
   private rangeChangeSubject = new Subject<number>();
-  public rangeValue: number = 0;
+  public rangeValue = 0;
 
   constructor(private store: Store<AppState>) {
   }

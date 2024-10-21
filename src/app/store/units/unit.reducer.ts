@@ -19,7 +19,7 @@ export const unitReducer = createReducer(
     loaded: true,
     loadFailed: false
   })),
-  on(unitActions.loadUnitFail, (state, { error }) => ({
+  on(unitActions.loadUnitFail, (state) => ({
     ...state,
     loading: false,
     loaded: false,
@@ -40,7 +40,7 @@ export const unitReducer = createReducer(
     loaded: true,
     loadFailed: false
   })),
-  on(unitActions.loadUnitDetailFail, (state, { error }) => ({
+  on(unitActions.loadUnitDetailFail, (state) => ({
     ...state,
     loading: false,
     loaded: false,

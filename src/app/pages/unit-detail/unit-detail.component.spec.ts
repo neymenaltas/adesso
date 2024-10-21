@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { unitActions } from 'app/store/units/unit.action';
 import { selectUnitDetail, selectUnitsLoading } from 'app/store/units/unit.selector';
-import { of } from 'rxjs';
 import { Unit } from 'app/models/unit.interface';
 import { LoadingStatus } from 'app/models/loading-status.interface';
 
@@ -18,7 +17,7 @@ describe('UnitDetailComponent', () => {
   const activatedRouteMock = {
     snapshot: {
       paramMap: {
-        get: (key: string) => '1' // Mock 'id' as '1'
+        get: () => '1' // Mock 'id' as '1'
       }
     }
   };

@@ -1,4 +1,4 @@
-import { Action, ActionReducer, ActionReducerMap } from '@ngrx/store';
+import { Action, ActionReducer } from '@ngrx/store';
 import { unitReducer } from 'app/store/units/unit.reducer';
 import { filterReducer } from 'app/store/filter/filter.reducer';
 import { FilterState } from 'app/store/filter/filter.state';

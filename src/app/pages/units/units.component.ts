@@ -71,7 +71,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
             return false;
           }
         }
-        let normalizedCosts: { [p: string]: number } = {
+        let normalizedCosts: Record<string, number> = {
           ...unit.cost,
           Wood: unit.cost?.Wood || 0,
           Food: unit.cost?.Food || 0,
